@@ -1,0 +1,51 @@
+
+header{
+	text-align:center;
+	/*mettre le même css que celui de la première page*/
+}
+
+#affichage {
+	border:1px solid black; 
+	display:flex;
+
+}
+
+#NouvellePartie{
+
+	margin-top:90%;
+
+
+}
+
+.gauche {
+	border:1px solid black; 
+	width:25%;
+	flex auto;
+	padding:3%;
+}
+
+.centre { 
+	border:1px solid black;
+	padding:3%;
+	width:30%;
+	text-align:center;	
+	
+}
+
+.droite {
+	border:1px solid black; 
+	padding:3%;
+	flex:auto;
+}
+
+
+.gauche div{
+	border:1px solid black; 
+	text-align:center;
+}
+
+
+.droite div {
+	border:1px solid black; 
+	text-align:center;
+}
