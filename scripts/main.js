@@ -14,12 +14,12 @@ function initPlateau(plateau) {
         plateau[i][j].style.setProperty("background-color", "#873600");
         if (i<4) {
             plateau[i][j].firstChild.setAttribute("src", "img/pionnoir.png")
-            plateau[i][j].pion = "Noir";
+            plateau[i][j].state = "pionNoir";
         } else if (i>5) {
             plateau[i][j].firstChild.setAttribute("src", "img/pionblanc.png")
-            plateau[i][j].pion = "Blanc";
+            plateau[i][j].state = "pionBlanc";
         } else {
-            plateau[i][j].pion = null;
+            plateau[i][j].state = null;
         }
     }
 
@@ -30,12 +30,53 @@ function initPlateau(plateau) {
         for (let j=0;j<10;j++) {
 
             plateau[i][j] = cells[i*10+j];
-            plateau[i][j].addEventListener("click", onClickCell);
+
+
+            // Fonction qui gère le clic sur une cellule
+
+            plateau[i][j].addEventListener("click", function () {
+                switch (plateau[i][j].state) {
+                    case "pionNoir":
+                        if (joueur === 1) {
+                            calculCoupPossible(plateau, i, j);
+                        }
+                        break;
+                    case "pionBlanc":
+                        if (joueur === 0) {
+                            calculCoupPossible(plateau, i, j);
+                        }
+                        break;
+                    case null:
+                        clearCoupPossible();
+                        break;
+                    default:
+                        clearCoupPossible();
+                        movePion(plateau, plateau[i][j].state[1], plateau[i][j].state[2], i, j);
+                        switch (hasWon(plateau, joueur)) {
+                            case 1:
+                                console.log("joueur 1 gagne");
+                                break;
+                            case 2:
+                                console.log("joueur 2 gagne");
+                                break;
+                            case 3:
+                                console.log("match nul");
+                                break;
+                            default:
+                                console.log("le match continue");
+                                break;
+                        }
+                        break;
+                }
+            });
+
+
+
 
             if (i%2 === 0) {
                 if (j%2 === 0) {
                     plateau[i][j].style.setProperty("background-color", "#fae5d3");
-                    plateau[i][j].pion = null;
+                    plateau[i][j].state = null;
                 } else {
                     setPions(plateau, i, j);
                 }
@@ -44,7 +85,7 @@ function initPlateau(plateau) {
                     setPions(plateau, i, j);
                 } else {
                     plateau[i][j].style.setProperty("background-color", "#fae5d3");
-                    plateau[i][j].pion = null;
+                    plateau[i][j].state = null;
                 }
             }
         }
@@ -52,14 +93,8 @@ function initPlateau(plateau) {
 }
 
 /**
- * Fonction s'exécutant lorsque l'on clique sur une cellule quelconque.
- */
-function onClickCell() {
-
-}
-
-/**
  * Calcule et affiche tous les coups possibles de la pièce sélectionnée
+ * Pour afficher les coups, on change le state de la cellule par "coup c l" puis on split
  *
  * @param plateau
  * @param c - colonne c du pion
@@ -142,12 +177,12 @@ function resetPlateau() {
 //////////////// Début du code OMG ////////////////////
 ///////////////////////////////////////////////////////
 
-
+let joueur = 0;
 let plateau = new Array(10);
 for (let i = 0; i<10; i++) {
     plateau[i] = new Array(10);
 }
 
 // TODO: demande des pseudos des joueurs
-initPlateau(plateau);
+initPlateau(plateau, joueur);
 console.log(plateau);
