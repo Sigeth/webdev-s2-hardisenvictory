@@ -7,7 +7,7 @@ function initPlateau(plateau) {
     /**
      * Place les pions selon la case
      * @param plateau
-     * @param i
+     * @param i 
      * @param j
      */
     function setPions(plateau, i, j) {
@@ -35,15 +35,19 @@ function initPlateau(plateau) {
             // Fonction qui gère le clic sur une cellule
 
             plateau[i][j].addEventListener("click", function () {
+          //  calculCoupPossible(plateau, i, j); //TODO: penser à enlever
+         	 console.log(plateau[i][j].state);
                 switch (plateau[i][j].state) {
                     case "pionNoir":
-                        if (joueur === 1) {
-                            calculCoupPossible(plateau, i, j);
-                        }
+                        //if (joueur === 1) {
+                            calculCoupPossible(plateau, j, i);
+                            
+                       // }
                         break;
                     case "pionBlanc":
                         if (joueur === 0) {
-                            calculCoupPossible(plateau, i, j);
+                            calculCoupPossible(plateau, j, i);
+                            console.log("pionBlanc");
                         }
                         break;
                     case null:
@@ -101,8 +105,36 @@ function initPlateau(plateau) {
  * @param l - ligne l du pion
  */
 function calculCoupPossible(plateau, c, l) {
+ 	
+	switch (plateau[l][c].state) {
+                    case "pionNoir":
+                       
+                            
+                     
+                        break;
+                    case "pionBlanc":
+                    if(l>0){
+                    console.log("colone du pion  : ",c,"ligne du pion :",l);  
+                    	if(c+1<10) {
+                    	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);  
+                    	plateau[l-1][c+1].state=`coup ${c} ${l}`;
+                           plateau[l-1][c+1].style.setProperty("background-color", "#787979")
+                          		}
+                          	if(c-1>-1){
+                          	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);  
+                          	plateau[l-1][c-1].state=`coup ${c} ${l}`;
+                           plateau[l-1][c-1].style.setProperty("background-color", "#787979")
+                           	}
+                    	
+                          }
+                  	
+                        
+                        break;
+	
 
-}
+
+
+}}
 
 /**
  * Enlève l'affichage des coups possibles
