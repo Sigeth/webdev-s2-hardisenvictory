@@ -11,18 +11,16 @@
         <header>
             <p>Jeu de Dame</p>
         </header>
-
-        <div id="gameDiv">
-            <div class="tour_div">
-            <div id="tourJoueurDiv">
-                <p>Au tour de pseudo !</p>
-            </div>
-            <div>
-            <button id="boutonAbandon">Abandon</button>
-            </div>
-            </div>
-
-            <table id="plateau">
+        
+         <div class="grid">
+                        <div class="tour_div">
+                            <div class="tourJoueurDiv">
+                            <p>Au tour de pseudo !</p>
+                            </div>
+                     <button class="boutonAbandon">Abandon</button>
+                    </div>
+            <div class="plato">
+            <table>
                 <tr>
                     <td class="cell"><img src="img/nopion.png" /></td>
                     <td class="cell"><img src="img/nopion.png" /></td>
@@ -144,25 +142,26 @@
                     <td class="cell"><img src="img/nopion.png" /></td>
                 </tr>
             </table>
-
+            </div>
 
 
             <div class = "nom_pseudo">
-            <div id="pseudo1div">
-                <p>Pseudo 1</p>
-            </div>
-            <div id="nbCoups1div">
+                <div class="pseudo1div">
+                    <p>Pseudo 1</p>
+                </div>
+            <div class="nbCoups1div">
                 <p>Pions restants : X</p>
             </div>
 
-            <div id="pseudo2div">
+            <div class="pseudo2div">
                 <p>Pseudo 2</p>
             </div>
-            <div id="nbCoups2div">
+                <div class="nbCoups2div">
                 <p>Pions restants : X</p>
-            </div>
+                </div>
             </div>
         </div>
+    
         <script src="./scripts/main.js"></script>
     </body>
 </html>
