@@ -1,4 +1,4 @@
-/**
+	/**
  * Initialisation du plateau
  * @param plateau
  */
@@ -39,22 +39,25 @@ function initPlateau(plateau) {
          	 console.log(plateau[i][j].state);
                 switch (plateau[i][j].state) {
                     case "pionNoir":
-                        //if (joueur === 1) {
+                        if (joueur === 1) {
+                        	clearCoupPossible(plateau); 
                             calculCoupPossible(plateau, j, i);
                             
-                       // }
+                        }
                         break;
                     case "pionBlanc":
                         if (joueur === 0) {
+                        clearCoupPossible(plateau); 
                             calculCoupPossible(plateau, j, i);
                             console.log("pionBlanc");
                         }
                         break;
                     case null:
-                        clearCoupPossible();
+                        clearCoupPossible(plateau);
                         break;
+                                            
                     default:
-                        clearCoupPossible();
+                        clearCoupPossible(plateau);
                         movePion(plateau, plateau[i][j].state[1], plateau[i][j].state[2], i, j);
                         switch (hasWon(plateau, joueur)) {
                             case 1:
@@ -105,43 +108,85 @@ function initPlateau(plateau) {
  * @param l - ligne l du pion
  */
 function calculCoupPossible(plateau, c, l) {
- 	
+ 		
 	switch (plateau[l][c].state) {
                     case "pionNoir":
-                       
-                            
-                     
+                    
+                    if(l<9){
+                    console.log("colone du pion  : ",c,"ligne du pion :",l);  
+                    	if(c+1<10) {
+                    		if(plateau[l+1][c+1].state != "pionNoir" && plateau[l+1][c+1].state != "pionBlanc" && plateau[l+1][c+1].state != "dameBlanche" && plateau[l+1][c+1].state != "dameNoir" ) {{
+                    	console.log("colone du pion  : ",c+1,"ligne du pion :",l+1);  
+                    	plateau[l+1][c+1].state=`coup ${c} ${l}`;
+                           plateau[l+1][c+1].style.setProperty("background-color", "#787979")
+                           		}
+                          		}
+                          	if(c-1>-1){
+                          		if(plateau[l+1][c-1].state != "pionNoir" && plateau[l+1][c-1].state != "pionBlanc" && plateau[l+1][c-1].state != "dameBlanche" && plateau[l+1][c-1].state != "dameNoir" ) {
+                          	console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);  
+                          	plateau[l+1][c-1].state=`coup ${c} ${l}`;
+                           plateau[l+1][c-1].style.setProperty("background-color", "#787979")
+                           	}
+                    	
+                          }
+                          }
+           }
                         break;
                     case "pionBlanc":
                     if(l>0){
                     console.log("colone du pion  : ",c,"ligne du pion :",l);  
                     	if(c+1<10) {
+                    		if(plateau[l-1][c+1].state != "pionNoir" && plateau[l-1][c+1].state != "pionBlanc" && plateau[l-1][c+1].state != "dameBlanche" && plateau[l-1][c+1].state != "dameNoir") {
                     	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);  
                     	plateau[l-1][c+1].state=`coup ${c} ${l}`;
                            plateau[l-1][c+1].style.setProperty("background-color", "#787979")
+                           		}
                           		}
-                          	if(c-1>-1){
+                          	if(c>-1){
+                          		if(plateau[l-1][c-1].state != "pionNoir" && plateau[l-1][c-1].state != "pionBlanc" && plateau[l-1][c-1].state != "dameBlanche" && plateau[l-1][c-1].state != "dameNoir") {
                           	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);  
                           	plateau[l-1][c-1].state=`coup ${c} ${l}`;
-                           plateau[l-1][c-1].style.setProperty("background-color", "#787979")
+                           plateau[l-1][c-1].style.setProperty("background-color", "#787979");
                            	}
+                           	
+                           	/*
+                           		if(plateau[l-1][c-1].state == "pionNoir") { //affichage pion mange 
+                           		
+                           		
+                           		
+                           		}
+                           		if(plateau[l-1][c+1].state == "pionNoir") { //affichage pion mange 
+                              		calculCoupPossible(plateau, c+1,l-1);
+                           		} 
+ */
+ 
+                    	
                     	
                           }
-                  	
-                        
+                         
+                          }
+
                         break;
 	
+}
 
-
-
-}}
+}
 
 /**
  * Enlève l'affichage des coups possibles
  * @param plateau
  */
 function clearCoupPossible(plateau) {
-
+	for(let i=0;i<10;i++){
+		for(let j=0;j<10;j++){
+		if(j%2 == 0) {
+		if(i%2 !=0) {
+		 	plateau[i][j].style.setProperty("background-color", "#873600");	
+		 	}
+	}
+	
+	
+}}
 }
 
 /**
@@ -154,6 +199,29 @@ function clearCoupPossible(plateau) {
  * @param y - ligne d'arrivée du pion
  */
 function movePion(plateau, c, l, x, y) {
+	plateau[x][y].state=null;
+	
+	switch (plateau[x][y].state) {
+		case "pionNoir" :
+			plateau[c][l].state="pionNoir";
+			plateau[c][l].firstChild.setAttribute("src", "img/pionnoir.png");			
+		case "pionBlanc" :
+			plateau[c][l].state="pionBlanc";
+			plateau[c][l].firstChild.setAttribute("src", "img/pionblanc.png");
+		
+		/*
+		case "dameBlanche" :
+		
+		
+		case "dameNoire" :
+		
+		case default :
+		
+		*/
+	
+	
+	
+	}
 
 }
 
