@@ -371,7 +371,24 @@ function estvide(plateau, x, y) {
  * @param l - ligne du pion
  */
 function transformePion(plateau, c, l) {
-
+	
+ 	if(plateau[c][l].state==="pionBlanc") {
+ 		plateau[c][l].state="dameBlanche";
+ 		//plateau[l][c].firstChild.setAttribute("src", "../img/nopion.png");
+ 	
+ 	
+ 	}
+	if(plateau[c][l].state==="pionNoir"){
+		plateau[c][l].state="dameNoire";
+		//plateau[l][c].firstChild.setAttribute("src", "../img/nopion.png");
+		
+	
+	}
+	else {
+	
+	
+	
+	}
 }
 
 
