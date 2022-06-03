@@ -11,6 +11,7 @@ function initPlateau(plateau) {
      * @param j
      */
     function setPions(plateau, i, j) {
+ 
         plateau[i][j].style.setProperty("background-color", "#873600");
         if (i < 4) {
             plateau[i][j].firstChild.setAttribute("src", "../img/pionnoir.png")
@@ -36,6 +37,8 @@ function initPlateau(plateau) {
 
             plateau[i][j].addEventListener("click", function () {
                     //  calculCoupPossible(plateau, i, j); //TODO: penser à enlever
+                    Eat=0;
+                    bouge=0;
                     console.log(plateau[i][j].state);
                     switch (plateau[i][j].state) {
                         case "pionNoir":
@@ -135,7 +138,14 @@ function calculCoupPossible(plateau, c, l) {
                             plateau[l + 1][c + 1].state = ["coup", c, l];
                             plateau[l + 1][c + 1].style.setProperty("background-color", "#787979")
                         }
-                    }
+                       if(estvide(plateau,l+1,c+1) && l+1===9) {
+                       	transformepion(plateau,l+1,c+1);
+                       
+                       
+                       
+                       
+                       }
+                                          }
                     if (c - 1 > -1) {
                         if (estvide(plateau, l + 1, c - 1)) {
                             //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
@@ -293,8 +303,30 @@ function movePion(plateau, c, l, x, y) {
  */
 function canEat(plateau, joueur) {
 
+
+
+
+
+
+
+
 }
 
+/**
+ * Vérifie si le joueur peut bouger
+ * @param plateau
+ * @param joueur - joueur sur le point de jouer
+ *
+ * @return {boolean} true si le joueur peut bouger false sinon
+ */
+function canBouge(plateau, joueur) {
+
+
+
+
+
+
+}
 
 /**
  *Verifie la case du plateau visée est bien vide
@@ -384,6 +416,7 @@ function transformePion(plateau, c, l) {
 		
 	
 	}
+	console.log(plateau[c][l].state);
 	else {
 	
 	
@@ -401,6 +434,7 @@ function transformePion(plateau, c, l) {
  * @return {number} 0 si personne ne gagne, 1 si joueur 1 a gagné, 2 si joueur 2 a gagné, 3 si match nul
  */
 function hasWon(plateau, joueur) {
+
 
 }
 
