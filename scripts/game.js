@@ -340,6 +340,90 @@ function canEat(plateau, joueur) {
 
 }
 
+
+
+function canBouge(plateau, l,c)
+{
+    if(plateau[l][c].state == "pionNoir" || plateau[l][c].state == "dameNoir" ) {
+
+            if (l < 10) {
+                console.log("colone du pion  : ", c, "ligne du pion :", l);
+                if (c < 10) {
+                    if (estvide(plateau, l + 1, c + 1))
+                    {
+                        bouge = 0;
+
+                    }
+                    if (c - 1 > -1) {
+                        if (estvide(plateau, l + 1, c - 1)) {
+                            //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
+                            //plateau[l + 1][c - 1].state = ["coup", c, l];
+                            //plateau[l + 1][c - 1].style.setProperty("background-color", "#787979")
+                            bouge = 0;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        else if(plateau[l][c].state == "pionBlanc" || plateau[l][c].state == "dameBlanc")
+        {
+            if (l > 0) {
+                console.log("colone du pion  : ", c, "ligne du pion :", l);
+                if (c < 10) {
+
+                    if (estvide(plateau, l - 1, c + 1)) {
+                        //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
+                        //plateau[l - 1][c + 1].state = ["coup", c, l];
+                        //plateau[l - 1][c + 1].style.setProperty("background-color", "#787979")
+                        bouge = 0;
+                    }
+                }
+                if (c - 1 > -1) {
+                    if (estvide(plateau, l - 1, c - 1)) {
+                        // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
+                        //plateau[l - 1][c - 1].state = ["coup", c, l];
+                        //plateau[l - 1][c - 1].style.setProperty("background-color", "#787979");
+                        bouge = 0;
+                    }
+            }
+        }
+        else{
+            bouge = 1;
+        }
+        
+}
+}
+
+
+/*
+ function hasWon(plateau, joueur) {
+    let cpt;
+    for(let i = 0; i<10;i++)
+    {
+        for(let j =0; j<10; j++)
+        {
+            if(plateau[i][j].state == joueur[0]||plateau[i][j].state == joueur[1])
+            {
+                cpt+=1;
+                canBouge(plateau,i,j);
+                console.log("bouge = " + bouge);
+                plateau[i][j].style.setProperty("background-color", "#787979");
+            }
+        }
+    }
+    
+    if(cpt == bouge || cpt == 0)
+    {
+        loose = 1;
+        console.log("la loose ?? :"+loose);
+    }
+    
+}
+*/
+
+
 /**
  * Vérifie si le joueur peut bouger
  * @param plateau
@@ -347,14 +431,7 @@ function canEat(plateau, joueur) {
  *
  * @return {boolean} true si le joueur peut bouger false sinon
  */
-function canBouge(plateau, joueur) {
 
-
-
-
-
-
-}
 
 /**
  *Verifie la case du plateau visée est bien vide
@@ -457,10 +534,7 @@ function transformePion(plateau, c, l) {
  *
  * @return {number} 0 si personne ne gagne, 1 si joueur 1 a gagné, 2 si joueur 2 a gagné, 3 si match nul
  */
-function hasWon(plateau, joueur) {
 
-
-}
 
 /**
  * Permet de réinitialiser le tableau
