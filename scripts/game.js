@@ -1,4 +1,3 @@
-
 /**
  * Initialisation du plateau
  * @param plateau
@@ -38,12 +37,15 @@ function initPlateau(plateau) {
 
             plateau[i][j].addEventListener("click", function () {
                     //  calculCoupPossible(plateau, i, j); //TODO: penser à enlever
+                    joueur1=["pionBlanc","dameBlanche"];
+		joueur2=["pionNoir","dameNoire"];
                     Eat=0;
                     bouge=0;
                     console.log(plateau[i][j].state);
                     switch (plateau[i][j].state) {
                         case "pionNoir":
                             if (joueur === 1) {
+                            	canEat(plateau,joueur1);
                                 clearCoupPossible(plateau);
                                 calculCoupPossible(plateau, j, i);
 
@@ -51,6 +53,7 @@ function initPlateau(plateau) {
                             break;
                         case "pionBlanc":
                             if (joueur === 0) {
+                            	  canEat(plateau,joueur2);
                                 clearCoupPossible(plateau);
                                 calculCoupPossible(plateau, j, i);
                                 //console.log("pionBlanc");
@@ -130,9 +133,9 @@ function calculCoupPossible(plateau, c, l) {
     switch (plateau[l][c].state) {
         case "pionNoir":
 
-            if (l < 9) {
+            if (l < 10) {
                 console.log("colone du pion  : ", c, "ligne du pion :", l);
-                if (c + 1 < 10) {
+                if (c < 10) {
                     if (estvide(plateau, l + 1, c + 1)) {
                         {
                             //console.log("colone du pion  : ",c+1,"ligne du pion :",l+1);
@@ -174,7 +177,7 @@ function calculCoupPossible(plateau, c, l) {
         case "pionBlanc":
             if (l > 0) {
                 console.log("colone du pion  : ", c, "ligne du pion :", l);
-                if (c + 1 < 10) {
+                if (c < 10) {
 
                     if (estvide(plateau, l - 1, c + 1)) {
                         //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
@@ -200,7 +203,10 @@ function calculCoupPossible(plateau, c, l) {
                     affichePossMange(plateau, l, c, "pionNoir");
 
                 }
-            }
+                
+            }   
+ 
+          
             break;
     }
 }
@@ -274,15 +280,8 @@ function movePion(plateau, c, l, x, y) {
             plateau[x][y].firstChild.setAttribute("src", "../img/pionblanc.png");
             eatPion();
             break;
-
-        /*
-        case "dameBlanche" :
-
-
-        case "dameNoire" :
-
-        case default :
-        */
+     
+        
 
 
     }
@@ -303,9 +302,37 @@ function movePion(plateau, c, l, x, y) {
  * @return {boolean} true si le joueur doit manger, false sinon
  */
 function canEat(plateau, joueur) {
+	if(joueur===joueur1) {
+	for(i=0;i<10;i++){
+		for(j=0;j<10;j++){
+			if(plateau[i][j].state===joueur[0] || plateau[i][j]===joueur[1]){
+				affichePossMange(plateau,i,j,joueur2[0]);
+				affichePossMange(plateau,i,j,joueur2[1]);			
+			}
 
+		}
+	}
+	}
+	if(joueur===joueur2){
+	
+	for(i=0;i<10;i++){
+		for(j=0;j<10;j++){
+			if(plateau[i][j].state===joueur[0] || plateau[i][j]===joueur[1]){
+				affichePossMange(plateau,i,j,joueur1[0]);
+				affichePossMange(plateau,i,j,joueur1[1]);			
+			}
 
-
+		}
+	}
+	}
+	
+	
+	if(Eat>0){
+		Eat=0;
+		return true;
+		}
+	Eat=0;
+	return false;
 
 
 
@@ -346,7 +373,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l - 2, c - 2)) {
                     plateau[l - 2][c - 2].state = ["coup", c, l];
                     plateau[l - 2][c - 2].style.setProperty("background-color", "#dc1512");
-
+                    Eat++;
                 }
             }
         } if (c + 2 < 10) {
@@ -354,7 +381,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l - 2, c + 2)) {
                     plateau[l - 2][c + 2].state = ["coup", c, l];
                     plateau[l - 2][c + 2].style.setProperty("background-color", "#dc1512");
-
+		Eat++;
                 }
             }
         }
@@ -364,7 +391,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l + 2, c + 2)) {
                     plateau[l + 2][c + 2].state = ["coup", c, l];
                     plateau[l + 2][c + 2].style.setProperty("background-color", "#dc1512");
-
+		Eat++;
                 }
             }
         } if (c - 2 > -1) {
@@ -372,7 +399,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l + 2, c - 2)) {
                     plateau[l + 2][c - 2].state = ["coup", c, l];
                     plateau[l + 2][c - 2].style.setProperty("background-color", "#dc1512");
-
+		Eat++;
                 }
             }
         }
@@ -405,24 +432,20 @@ function estvide(plateau, x, y) {
  */
 function transformePion(plateau, c, l) {
 	
- 	if(plateau[c][l].state==="pionBlanc") {
- 		plateau[c][l].state="dameBlanche";
- 		//plateau[l][c].firstChild.setAttribute("src", "../img/nopion.png");
+ 	if(plateau[l][c].state==="pionBlanc") {
+ 		plateau[l][c].state="dameBlanche";
+ 		plateau[l][c].firstChild.setAttribute("src", "../img/dameBlanche.png");
  	
  	
- 	}
-	if(plateau[c][l].state==="pionNoir"){
-		plateau[c][l].state="dameNoire";
-		//plateau[l][c].firstChild.setAttribute("src", "../img/nopion.png");
+ 	}	
+	if(plateau[l][c].state==="pionNoir"){
+		plateau[l][c].state="dameNoire";
+		plateau[l][c].firstChild.setAttribute("src", "../img/dameNoire.png");
 		
 	
 	}
-	console.log(plateau[c][l].state);
-	/*else {
+	console.log(plateau[l][c].state);
 	
-	
-	
-	}*/
 }
 
 
