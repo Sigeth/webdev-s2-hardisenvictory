@@ -1,3 +1,4 @@
+
 /**
  * Initialisation du plateau
  * @param plateau
@@ -417,11 +418,11 @@ function transformePion(plateau, c, l) {
 	
 	}
 	console.log(plateau[c][l].state);
-	else {
+	/*else {
 	
 	
 	
-	}
+	}*/
 }
 
 
