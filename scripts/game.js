@@ -397,8 +397,9 @@ function canBouge(plateau, l,c)
 }
 
 
-/*
+
  function hasWon(plateau, joueur) {
+     /*
     let cpt;
     for(let i = 0; i<10;i++)
     {
@@ -419,9 +420,9 @@ function canBouge(plateau, l,c)
         loose = 1;
         console.log("la loose ?? :"+loose);
     }
-    
+    */
 }
-*/
+
 
 
 /**
