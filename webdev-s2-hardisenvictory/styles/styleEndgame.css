@@ -1,0 +1,80 @@
+*{
+	
+	
+	font-family: cursive;
+}
+
+	
+header{
+	text-align: center;
+	display: flex;
+
+}
+
+h1{
+	flex: 1 2 auto;
+	padding: 0;
+	margin: 0;
+	background-color: #44bd32;
+	margin-top: 0;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 100px;
+	/*mettre le même css que celui de la première page*/
+}
+
+body{
+	background:#8c7ae6;
+	font-size: 25px;
+}
+
+#affichage {	
+	border:1px solid black; 
+	display:flex;
+
+}
+
+#NouvellePartie{
+
+	margin-top:90%;
+
+
+}
+
+.gauche {
+	border:1px solid black; 
+	width:25%;
+	flex: auto;
+	padding:3%;
+}
+
+.centre { 
+	border:1px solid black;
+	padding:3%;
+	width:30%;
+	text-align:center;	
+	background-color: #44bd32;
+	
+}
+
+.droite {
+	border:1px solid black; 
+	padding:3%;
+	flex:auto;
+}
+
+
+.gauche div{
+	background-color: #44bd32;
+	border:1px solid black; 
+	text-align:center;
+}
+
+
+.droite div {
+	background-color: #44bd32;
+	border:1px solid black; 
+	text-align:center;
+}
+
+
