@@ -2,7 +2,7 @@
  * Initialisation du plateau
  * @param plateau
  */
- function initPlateau(plateau) {
+function initPlateau(plateau) {
 
     /**
      * Place les pions selon la case
@@ -28,7 +28,7 @@
     let cells = document.getElementsByClassName("cell");
 
     // Réinitialisation des statistiques en début de partie
-    nb_parties ++;
+    nb_parties++;
     nb_coups_j1 = 0;
     nb_coups_j2 = 0;
     pions_manges_j1 = 0;
@@ -43,18 +43,13 @@
             // Fonction qui gère le clic sur une cellule
 
             plateau[i][j].addEventListener("click", function () {
-                    //  calculCoupPossible(plateau, i, j); //TODO: penser à enlever
-                    joueur1 = ["pionBlanc", "dameBlanche"];
-                    joueur2 = ["pionNoir", "dameNoire"];
-                    Eat = 0;
-                    bouge = 0;
                     console.log(plateau[i][j].state);
                     console.log(i);
                     console.log(j);
                     switch (plateau[i][j].state) {
                         case "pionNoir":
                             if (joueur === 1) {
-                                canEat(plateau, joueur1);
+                                canEat(plateau, joueur);
                                 clearCoupPossible(plateau);
                                 calculCoupPossible(plateau, j, i);
 
@@ -62,7 +57,7 @@
                             break;
                         case "pionBlanc":
                             if (joueur === 0) {
-                                canEat(plateau, joueur2);
+                                canEat(plateau, joueur);
                                 clearCoupPossible(plateau);
                                 calculCoupPossible(plateau, j, i);
                                 //console.log("pionBlanc");
@@ -73,11 +68,11 @@
                             break;
 
                         default:
-                        	//test//
+                            //test//
                             console.log("omg plateau i j .state");
                             console.log(plateau[i][j].state[1]);
                             console.log(plateau[i][j].state[2]);
-                            console.log("fin plateau");	
+                            console.log("fin plateau");
                             //finTest//
                             movePion(plateau, plateau[i][j].state[1], plateau[i][j].state[2], i, j);
                             clearCoupPossible(plateau);
@@ -143,83 +138,83 @@
 
 //bon c'est fait un peu n'importe comment mais ça marche omg; c'est pas vraiment opti quoi
 
- 
+
     switch (plateau[l][c].state) {
         case "pionNoir":
-	  
+
             if (l < 10) {
-               // console.log("colone du pion  : ", c, "ligne du pion :", l);
+                // console.log("colone du pion  : ", c, "ligne du pion :", l);
                 if (c < 9) {
-                if(canEat(plateau,joueur2)==false){
-                	//console.log("caneat()");
-                    if (estvide(plateau, l + 1, c + 1)) {
-                        {
-                            //console.log("colone du pion  : ",c+1,"ligne du pion :",l+1);
-                            plateau[l + 1][c + 1].state = ["coup", c, l];
-                            plateau[l + 1][c + 1].style.setProperty("background-color", "#787979")
+                    if (!canEat(plateau, 1)) {
+                        //console.log("caneat()");
+                        if (estvide(plateau, l + 1, c + 1)) {
+                            {
+                                //console.log("colone du pion  : ",c+1,"ligne du pion :",l+1);
+                                plateau[l + 1][c + 1].state = ["coup", c, l];
+                                plateau[l + 1][c + 1].style.setProperty("background-color", "#787979")
+                            }
                         }
                     }
-                    }
-                    if(canEat(plateau,joueur2)==true) {
-                    if (plateau[l + 1][c + 1].state === "pionBlanc") {
+                    if (canEat(plateau, 0)) {
+                        if (plateau[l + 1][c + 1].state === "pionBlanc") {
 
-                        affichePossMange(plateau, l, c, "pionBlanc");
+                            affichePossMange(plateau, l, c, "pionBlanc");
 
-                    }
+                        }
                     }
 
                 }
                 if (c - 1 > -1) {
-                 if(canEat(plateau,joueur2)==false){
-                 	//console.log("caneat()");
-                    if (estvide(plateau, l + 1, c - 1)) {
-                        //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
-                        plateau[l + 1][c - 1].state = ["coup", c, l];
-                        plateau[l + 1][c - 1].style.setProperty("background-color", "#787979")
+                    if (!canEat(plateau, 1)) {
+                        //console.log("caneat()");
+                        if (estvide(plateau, l + 1, c - 1)) {
+                            //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
+                            plateau[l + 1][c - 1].state = ["coup", c, l];
+                            plateau[l + 1][c - 1].style.setProperty("background-color", "#787979")
+                        }
                     }
-		}
-		if(canEat(plateau,joueur2)==true){
+                    if (canEat(plateau, 1)) {
 
-                    if (plateau[l + 1][c - 1].state === "pionBlanc") {
+                        if (plateau[l + 1][c - 1].state === "pionBlanc") {
 
-                        affichePossMange(plateau, l, c, "pionBlanc");
+                            affichePossMange(plateau, l, c, "pionBlanc");
 
+                        }
                     }
-                }
                 }
             }
             break;
         case "pionBlanc":
             if (l > 0) {
-               // console.log("colone du pion  : ", c, "ligne du pion :", l);
+                // console.log("colone du pion  : ", c, "ligne du pion :", l);
                 if (c < 9) {
-		if(canEat(plateau,joueur1)==false){
-                    if (estvide(plateau, l - 1, c + 1)) {
-                        //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
-                        plateau[l - 1][c + 1].state = ["coup", c, l];
-                        plateau[l - 1][c + 1].style.setProperty("background-color", "#787979")
+                    if (!canEat(plateau, 0)) {
+                        if (estvide(plateau, l - 1, c + 1)) {
+                            //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
+                            plateau[l - 1][c + 1].state = ["coup", c, l];
+                            plateau[l - 1][c + 1].style.setProperty("background-color", "#787979")
+                        }
                     }
-                    }
-                    if(canEat(plateau,joueur1)==true){
-                    if (plateau[l - 1][c + 1].state === "pionNoir") {
+                    if (canEat(plateau, 0)) {
+                        if (plateau[l - 1][c + 1].state === "pionNoir") {
 
-                        affichePossMange(plateau, l, c, "pionNoir");
-		}
+                            affichePossMange(plateau, l, c, "pionNoir");
+                        }
                     }
                 }
                 if (c - 1 > -1) {
-                if(canEat(plateau,joueur1)==false){
-                    if (estvide(plateau, l - 1, c - 1)) {
-                        // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
-                        plateau[l - 1][c - 1].state = ["coup", c, l];
-                        plateau[l - 1][c - 1].style.setProperty("background-color", "#787979");
+                    if (!canEat(plateau, 0)) {
+                        if (estvide(plateau, l - 1, c - 1)) {
+                            // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
+                            plateau[l - 1][c - 1].state = ["coup", c, l];
+                            plateau[l - 1][c - 1].style.setProperty("background-color", "#787979");
+                        }
                     }
-		}
-		if(canEat(plateau,joueur1)==true){
-                    if (plateau[l - 1][c - 1].state === "pionNoir") {
+                    if (canEat(plateau, 0)) {
+                        if (plateau[l - 1][c - 1].state === "pionNoir") {
 
-                        affichePossMange(plateau, l, c, "pionNoir");
-                      }
+                            affichePossMange(plateau, l, c, "pionNoir");
+                        }
                     }
                 }
 
@@ -296,7 +291,7 @@ function movePion(plateau, c, l, x, y) {
                 transformePion(plateau, x, y);
             }
             eatPion();
-            nb_coups_j2 ++;
+            nb_coups_j2++;
             break;
         case "pionBlanc" :
             plateau[x][y].state = "pionBlanc";
@@ -305,7 +300,7 @@ function movePion(plateau, c, l, x, y) {
                 transformePion(plateau, x, y);
             }
             eatPion();
-            nb_coups_j1 ++;
+            nb_coups_j1++;
             break;
 
 
@@ -325,8 +320,6 @@ function movePion(plateau, c, l, x, y) {
 
 
 }
-
-
 
 
 /*
@@ -417,24 +410,25 @@ function mouvDames(plateau,c,l,x,y) {
  * @return {boolean} true si le joueur doit manger, false sinon
  */
 function canEat(plateau, joueur) {
-    if (joueur === joueur1) {
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
-                if (plateau[i][j].state === joueur[0] || plateau[i][j] === joueur[1]) {
-                    affichePossMange(plateau, i, j, joueur2[0]);
-                    affichePossMange(plateau, i, j, joueur2[1]);
+    let potentialEat = 0;
+    if (joueur === 0) {
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (plateau[i][j].state === "pionBlanc" || plateau[i][j].state === "dameBlanche") {
+                    potentialEat += affichePossMange(plateau, i, j, "pionNoir");
+                    potentialEat += affichePossMange(plateau, i, j, "dameNoire");
                 }
 
             }
         }
     }
-    if (joueur === joueur2) {
+    if (joueur === 1) {
 
-        for (i = 0; i < 10; i++) {
-            for (j = 0; j < 10; j++) {
-                if (plateau[i][j].state === joueur[0] || plateau[i][j] === joueur[1]) {
-                    affichePossMange(plateau, i, j, joueur1[0]);
-                    affichePossMange(plateau, i, j, joueur1[1]);
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (plateau[i][j].state === "pionNoir" || plateau[i][j] === "dameNoire") {
+                    potentialEat += affichePossMange(plateau, i, j, "pionBlanc");
+                    potentialEat += affichePossMange(plateau, i, j, "dameBlanche");
                 }
 
             }
@@ -442,20 +436,15 @@ function canEat(plateau, joueur) {
     }
 
 
-    if (Eat > 0) {
-        Eat = 0;
-        if(joueur === joueur1){
-            pions_manges_j1 ++;
-        }
-        else {
-            pions_manges_j2 ++;
+    if (potentialEat > 0) {
+        if (joueur === 0) {
+            pions_manges_j1++;
+        } else {
+            pions_manges_j2++;
         }
         return true;
     }
-    Eat = 0;
     return false;
-
-
 }
 
 
@@ -468,50 +457,54 @@ function canEat(plateau, joueur) {
  * @return {boolean} true si le joueur peut bouger false sinon
  */
 function canBouge(plateau, l, c) {
-    if (plateau[l][c].state === "pionNoir" || plateau[l][c].state === "dameNoir") {
 
-        if (l < 10) {
-           // console.log("colone du pion  : ", c, "ligne du pion :", l);
-            if (c < 10) {
-                if (estvide(plateau, l + 1, c + 1)) {
-                    bouge = 0;
-
-                }
-                if (c - 1 > -1) {
-                    if (estvide(plateau, l + 1, c - 1)) {
-                        //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
-                        //plateau[l + 1][c - 1].state = ["coup", c, l];
-                        //plateau[l + 1][c - 1].style.setProperty("background-color", "#787979")
-                        bouge = 0;
+    switch (plateau[l][c].state) {
+        case "pionNoir":
+            if (l < 10) {
+                // console.log("colone du pion  : ", c, "ligne du pion :", l);
+                if (c < 9) {
+                    if (estvide(plateau, l + 1, c + 1)) {
+                        return true;
+                    }
+                    if (c - 1 > -1) {
+                        if (estvide(plateau, l + 1, c - 1)) {
+                            //console.log("colone du pion  : ",c-1,"ligne du pion :",l+1);
+                            //plateau[l + 1][c - 1].state = ["coup", c, l];
+                            //plateau[l + 1][c - 1].style.setProperty("background-color", "#787979")
+                            return true;
+                        }
                     }
                 }
-
             }
-        }
-    } else if (plateau[l][c].state === "pionBlanc" || plateau[l][c].state === "dameBlanc") {
-        if (l > 0) {
-            //console.log("colone du pion  : ", c, "ligne du pion :", l);
-            if (c < 10) {
+            return false;
+        case "pionBlanc":
+            if (l > 0) {
+                //console.log("colone du pion  : ", c, "ligne du pion :", l);
+                if (c < 10) {
 
-                if (estvide(plateau, l - 1, c + 1)) {
-                    //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
-                    //plateau[l - 1][c + 1].state = ["coup", c, l];
-                    //plateau[l - 1][c + 1].style.setProperty("background-color", "#787979")
-                    bouge = 0;
+                    if (estvide(plateau, l - 1, c + 1)) {
+                        //	console.log("colone du pion  : ",c+1,"ligne du pion :",l-1);
+                        //plateau[l - 1][c + 1].state = ["coup", c, l];
+                        //plateau[l - 1][c + 1].style.setProperty("background-color", "#787979")
+                        return true;
+                    }
+                }
+                if (c - 1 > -1) {
+                    if (estvide(plateau, l - 1, c - 1)) {
+                        // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
+                        //plateau[l - 1][c - 1].state = ["coup", c, l];
+                        //plateau[l - 1][c - 1].style.setProperty("background-color", "#787979");
+                        return true;
+                    }
                 }
             }
-            if (c - 1 > -1) {
-                if (estvide(plateau, l - 1, c - 1)) {
-                    // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
-                    //plateau[l - 1][c - 1].state = ["coup", c, l];
-                    //plateau[l - 1][c - 1].style.setProperty("background-color", "#787979");
-                    bouge = 0;
-                }
-            }
-        } else {
-            bouge = 1;
-        }
-
+            return false;
+        case "dameNoire":
+            console.log("canBougeDameNoire");
+            break;
+        case "dameBlanche":
+            console.log("canBougeDameBlanche");
+            break;
     }
 }
 
@@ -556,18 +549,19 @@ function hasWon(plateau, joueur) {
  * @param x coordonnées en x => ligne
  * @param y coordonnées en y => colonne
  * @param w => string qui contient soit "pionNoir" soit "pionBlanc" /dame potentiellement
- * @return rien
+ * @return int
  */
 function affichePossMange(plateau, l, c, w) {
 
 
+    let potentialEat = 0;
     if (l - 2 > -1) {
         if (c - 2 > -1) {
             if (plateau[l - 1][c - 1].state === w) {
                 if (estvide(plateau, l - 2, c - 2)) {
                     plateau[l - 2][c - 2].state = ["coup", c, l];
                     plateau[l - 2][c - 2].style.setProperty("background-color", "#dc1512");
-                    Eat++;
+                    potentialEat++;
                 }
             }
         }
@@ -576,7 +570,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l - 2, c + 2)) {
                     plateau[l - 2][c + 2].state = ["coup", c, l];
                     plateau[l - 2][c + 2].style.setProperty("background-color", "#dc1512");
-                    Eat++;
+                    potentialEat++;
                 }
             }
         }
@@ -587,7 +581,7 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l + 2, c + 2)) {
                     plateau[l + 2][c + 2].state = ["coup", c, l];
                     plateau[l + 2][c + 2].style.setProperty("background-color", "#dc1512");
-                    Eat++;
+                    potentialEat++;
                 }
             }
         }
@@ -596,11 +590,13 @@ function affichePossMange(plateau, l, c, w) {
                 if (estvide(plateau, l + 2, c - 2)) {
                     plateau[l + 2][c - 2].state = ["coup", c, l];
                     plateau[l + 2][c - 2].style.setProperty("background-color", "#dc1512");
-                    Eat++;
+                    potentialEat++;
                 }
             }
         }
     }
+
+    return potentialEat;
 }
 
 
@@ -632,17 +628,17 @@ function transformePion(plateau, l, c) {
     if (plateau[l][c].state === "pionBlanc") {
         plateau[l][c].state = "dameBlanche";
         //plateau[l][c].firstChild.setAttribute("src", "../img/dameBlanche.png");
-	console.log("omgDameBlanche");
+        console.log("omgDameBlanche");
 
     }
     if (plateau[l][c].state === "pionNoir") {
         plateau[l][c].state = "dameNoire";
-       console.log("omgDameNoire");
+        console.log("omgDameNoire");
         //plateau[l][c].firstChild.setAttribute("src", "../img/dameNoire.png");
 
 
     }
-    
+
 
 }
 
