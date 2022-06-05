@@ -164,7 +164,7 @@ function initPlateau(plateau) {
                     }
 
                 }
-                if (c - 1 > -1) {
+                if (c > 0) {
                     if (!canEat(plateau, 1)) {
                         //console.log("caneat()");
                         if (estvide(plateau, l + 1, c - 1)) {
@@ -202,7 +202,7 @@ function initPlateau(plateau) {
                         }
                     }
                 }
-                if (c - 1 > -1) {
+                if (c > 0) {
                     if (!canEat(plateau, 0)) {
                         if (estvide(plateau, l - 1, c - 1)) {
                             // 	console.log("colone du pion  : ",c-1,"ligne du pion :",l-1);
@@ -333,7 +333,7 @@ function calculcoupDames(plateau,c,l) {
 		case "dameNoire" :
 		
 		while(l-x>=0 && c+x<10) {
-               		 if(canEat(plateau,1)==false){
+               		 if(canEat(plateau,1)===false){
                    			 if (estvide(plateau, l-x, c + x)) {
                         {
                             
@@ -344,11 +344,15 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,1)==true) {
-                    if (plateau[l - x][c + x].state === "pionBlanc") {
+                    if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l-x][c+x] === "dameBlanche") {
 
                         affichePossMange(plateau, l, c, "pionBlanc");
 
                     }
+                    else {
+                        break;
+                    }
+                    
 		}
 		x++;
 		}	
@@ -366,10 +370,13 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,1)==true) {
-                    if (plateau[l - x][c - x].state === "pionBlanc") {
+                    if (plateau[l - x][c - x].state === "pionBlanc" || plateau[l-x][c-x]) {
 
                         affichePossMange(plateau, l, c, "pionBlanc");
 
+                    }
+                    else{
+                       break;
                     }
 		}
 		x++;
@@ -387,15 +394,19 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,1)==true) {
-                    if (plateau[l + x][c + x].state === "pionBlanc") {
+                    if (plateau[l + x][c + x].state === "pionBlanc" || plateau[l+x][c+x] === "dameBlanche") {
 
                         affichePossMange(plateau, l, c, "pionBlanc");
 
+                    }
+                    else {
+                       break;
                     }
 		}
 		x++;
 		}	
 		x=0;
+		
 		while(l+x<10 && c-x>=0) {
                		 if(canEat(plateau,1)==false){
                    			 if (estvide(plateau, l+x, c -x)) {
@@ -408,10 +419,13 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,1)==true) {
-                    if (plateau[l + x][c - x].state === "pionBlanc") {
+                    if (plateau[l + x][c - x].state === "pionBlanc" || plateau[l+x][c-x]) {
 
                         affichePossMange(plateau, l, c, "pionBlanc");
 
+                    }
+                    else{
+                       break;
                     }
 		}
 		x++;
@@ -453,15 +467,19 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,0)==true) {
-                    if (plateau[l - x][c - x].state === "pionNoir") {
+                    if (plateau[l - x][c - x].state === "pionNoir" || plateau[l-x][c-x] === "dameNoire") {
 
                         affichePossMange(plateau, l, c, "pionNoir");
 
+                    }
+                    else {
+                       break;
                     }
 		}
 		x++;
 		}	
 		x=0;
+		
 		while(l+x<10 && c+x<10) {
                		 if(canEat(plateau,0)==false){
                    			 if (estvide(plateau, l+x, c + x)) {
@@ -474,10 +492,13 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,0)==true) {
-                    if (plateau[l + x][c + x].state === "pionNoir") {
+                    if (plateau[l + x][c + x].state === "pionNoir" || plateau[l+x][c+x]==="dameNoire") {
 
                         affichePossMange(plateau, l, c, "pionNoir");
 
+                    }
+                    else{
+                       break;
                     }
 		}
 		x++;
@@ -495,10 +516,13 @@ function calculcoupDames(plateau,c,l) {
                     }
                     
                     if(canEat(plateau,0)==true) {
-                    if (plateau[l + x][c - x].state === "pionNoir") {
+                    if (plateau[l + x][c - x].state === "pionNoir" || plateau[l+x][c-x] ==="dameNoire") {
 
                         affichePossMange(plateau, l, c, "pionNoir");
 
+                    }
+                    else{
+                      break ;
                     }
 		}
 		x++;
