@@ -24,7 +24,7 @@ h1{
 }
 
 body{
-	background:#8c7ae6;
+	
 	font-size: 25px;
 }
 
@@ -36,10 +36,16 @@ body{
 
 #NouvellePartie{
 
-	margin-top:90%;
-
+	margin-top:70%;
 
 }
+
+#bouton{
+	font-size: 90px;
+	background-color: #8c7ae6;
+}
+
+
 
 .gauche {
 	border:1px solid black;
