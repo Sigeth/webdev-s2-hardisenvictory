@@ -2,7 +2,7 @@
  * Initialisation du plateau
  * @param plateau
  */
-function initPlateau(plateau) {
+ function initPlateau(plateau) {
 
     /**
      * Place les pions selon la case
@@ -557,25 +557,29 @@ function movePion(plateau, c, l, x, y) {
 
     /**fonction permettant de faire manger une dame
      **/
-    function eatdames()
+     function eatdames()
     {
         console.log(`c : ${c}, l : ${l}, x : ${x}, y : ${y}`);
         switch (plateau[l][c].state) {
+        
             case "dameBlanche" :
 
-                if (y > c) {
-                    if (x > l) {
-                        if (plateau[l - 1][c - 1].state === "pionNoir" || plateau[l - 1][c - 1] === "dameNoire") {
-                            plateau[l - 1][c - 1].state = null;
-                            plateau[l - 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                if (x > l && x<10) {
+                    if (y > c && y<10) {
+                    
+                        if (plateau[x - 1][y- 1].state === "pionNoir" || plateau[x- 1][y - 1] === "dameNoire") {
+                            
+                            plateau[x - 1][y - 1].state = null;
+                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
                     }
-                    if (x < l) {
-                        if (plateau[l - 1][c + 1].state === "pionNoir" || plateau[l - 1][c + 1] === "dameNoire") {
-                            plateau[l - 1][c + 1].state = null;
-                            plateau[l - 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png")
+                    if (y < c && y>=0 ) {
+                        if (plateau[x-1][y+ 1].state === "pionNoir" || plateau[x-1][y+1] === "dameNoire") {
+                        
+                            plateau[x-1][y+1].state = null;
+                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -583,20 +587,22 @@ function movePion(plateau, c, l, x, y) {
                     }
                 }
 
-                if (y < c) {
+                if (x < l  && x>=0) {
 
-                    if (x > l) {
-                        if (plateau[l + 1][c - 1].state === "pionNoir" || plateau[l + 1][c - 1] === "dameNoire") {
-                            plateau[l + 1][c - 1].state = null;
-                            plateau[l + 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                    if (y > c && y<10)  {
+                        if (plateau[x + 1][y - 1].state === "pionNoir" || plateau[x + 1][y - 1] === "dameNoire") {
+                       
+                            plateau[x + 1][y - 1].state = null;
+                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
                     }
-                    if (x < l) {
-                        if (plateau[l + 1][c + 1].state === "pionNoir" || plateau[l + 1][c + 1] === "dameNoire") {
-                            plateau[l + 1][c + 1].state = null;
-                            plateau[l + 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png")
+                    if (y < c && y<10) {
+                        if (plateau[x + 1][y+ 1].state === "pionNoir" || plateau[y + 1][x + 1] === "dameNoire") {
+                        console.log(x+1,y+1) ;
+                            plateau[x + 1][y + 1].state = null;
+                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -604,41 +610,24 @@ function movePion(plateau, c, l, x, y) {
                     }
                 }
                 break;
+                
             case "dameNoire":
-                if (c > x) {
-                    if (l > y) {
-                        if (plateau[c - 1][l - 1].state === "pionBlanc" || plateau[c - 1][l - 1] === "dameBlanche") {
-                            plateau[c - 1][l - 1].state = null;
-                            plateau[c - 1][l - 1].firstChild.setAttribute("src", "../img/nopion.png")
+            if (x > l && x<10) {
+                    if (y > c && y<10) {
+                    
+                        if (plateau[x - 1][y- 1].state === "pionBlanc" || plateau[x- 1][y - 1] === "dameBlanche") {
+                            
+                            plateau[x - 1][y - 1].state = null;
+                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
                     }
-                    if (l < y) {
-                        if (plateau[c - 1][l + 1].state === "pionBlanc" || plateau[c - 1][l + 1] === "dameBlanche") {
-                            plateau[c - 1][l + 1].state = null;
-                            plateau[c - 1][l + 1].firstChild.setAttribute("src", "../img/nopion.png")
-
-                        }
-
-
-                    }
-                }
-
-                if (c < x) {
-
-                    if (l > y) {
-                        if (plateau[c + 1][l - 1].state === "pionBlanc" || plateau[c + 1][l - 1] === "dameBlanche") {
-                            plateau[c + 1][l - 1].state = null;
-                            plateau[c + 1][l - 1].firstChild.setAttribute("src", "../img/nopion.png")
-
-                        }
-
-                    }
-                    if (l < y) {
-                        if (plateau[c + 1][l + 1].state === "pionBlanc" || plateau[c + 1][l + 1] === "dameBlanche") {
-                            plateau[c + 1][l + 1].state = null;
-                            plateau[c + 1][l + 1].firstChild.setAttribute("src", "../img/nopion.png")
+                    if (y < c && y>=0 ) {
+                        if (plateau[x-1][y+ 1].state === "pionBlanc" || plateau[x-1][y+1] === "dameBlanche") {
+                        
+                            plateau[x-1][y+1].state = null;
+                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -646,6 +635,28 @@ function movePion(plateau, c, l, x, y) {
                     }
                 }
 
+                if (x < l  && x>=0) {
+
+                    if (y > c && y<10)  {
+                        if (plateau[x + 1][y - 1].state === "pionBlanc" || plateau[x + 1][y - 1] === "dameBlanche") {
+                       
+                            plateau[x + 1][y - 1].state = null;
+                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
+
+                        }
+
+                    }
+                    if (y < c && y<10) {
+                        if (plateau[x + 1][y+ 1].state === "pionBlanc" || plateau[y + 1][x + 1] === "dameBlanche") {
+                        console.log(x+1,y+1) ;
+                            plateau[x + 1][y + 1].state = null;
+                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
+
+                        }
+
+
+                    }
+                }
                 break;
         }
 
