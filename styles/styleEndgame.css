@@ -33,21 +33,25 @@ body{
 }
 
 #NouvellePartie{
+	margin-left:7.5vw;
+	width:15vw;
+	margin-top:25vh;
+	margin-right:7.5vw;
+	
 
-	margin-top:70%;
 
 }
 
 #bouton{
-	font-size: 90px;
 	background-color: #8c7ae6;
+	font-size:5vw;
 }
 
 
 
 .gauche {
 	border:1px solid black;
-	width:25%;
+	width:25vw;
 	flex: auto;
 	padding:3%;
 }
@@ -55,7 +59,7 @@ body{
 .centre {
 	border:1px solid black;
 	padding:3%;
-	width:30%;
+	width:30vw;
 	text-align:center;
 	background-color: #44bd32;
 
@@ -65,10 +69,11 @@ body{
 	border:1px solid black;
 	padding:3%;
 	flex:auto;
+	width:25vw;
 }
 
 
-.gauche div{
+.gauche div {
 	background-color: #44bd32;
 	border:1px solid black;
 	text-align:center;
