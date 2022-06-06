@@ -39,7 +39,7 @@ header{
     grid-gap: 10px;
 }
 
-.boutonAbandon{
+#boutonAbandon{
     font-size: 30px;
     background-color: #44bd32;
     margin:auto;

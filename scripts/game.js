@@ -903,3 +903,18 @@ document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.
 
 initPlateau(plateau, joueur);
 console.log(plateau);
+
+const surrend = document.getElementById("boutonAbandon");
+
+surrend.addEventListener("click",function(){
+    if(joueur === 0)
+    {
+        console.log("joueur 2 gagne");
+        document.location.href = "../docs/endgame.html";
+    }
+    else if(joueur === 1)
+    {
+        console.log("joueur 1 gagne");
+        document.location.href = "../docs/endgame.html";
+    }
+});
