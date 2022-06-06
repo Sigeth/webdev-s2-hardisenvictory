@@ -85,7 +85,7 @@ function initPlateau(plateau) {
                             console.log(plateau[i][j].state[2]);
                             console.log("fin plateau");
                             //finTest//
-                            movePion(plateau, plateau[i][j].state[1], plateau[i][j].state[2], i, j);
+                            const hasAte = movePion(plateau, plateau[i][j].state[1], plateau[i][j].state[2], i, j);
                             clearCoupPossible(plateau);
                             switch (hasWon(plateau, joueur)) {
                                 case 1:
@@ -102,20 +102,38 @@ function initPlateau(plateau) {
                                     break;
                                 default:
                                     console.log("le match continue");
-                                    switch (joueur) {
-                                        case 0:
-                                            joueur = 1;
-                                            document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo2")}`
-                                            break;
-                                        default:
-                                            joueur = 0;
-                                            document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo1")}`
-                                            break;
+
+                                    if (hasAte) {
+                                        console.log("il a mangé");
+                                        if (!canEat(plateau, joueur)) {
+                                            switch (joueur) {
+                                                case 0:
+                                                    joueur = 1;
+                                                    document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo2")}`
+                                                    break;
+                                                default:
+                                                    joueur = 0;
+                                                    document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo1")}`
+                                                    break;
+                                            }
+                                        }
+                                    } else {
+                                            console.log("il n'a pas mangé");
+                                            switch (joueur) {
+                                                case 0:
+                                                    joueur = 1;
+                                                    document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo2")}`
+                                                    break;
+                                                default:
+                                                    joueur = 0;
+                                                    document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo1")}`
+                                                    break;
+                                            }
+                                        }
                                     }
-                                    break;
+                            break;
                             }
                     }
-                }
             );
 
 
@@ -556,21 +574,21 @@ function clearCoupPossible(plateau) {
  */
 function movePion(plateau, c, l, x, y) {
 
+
+    let hasAte = false;
     function eatPion() {
-        if (Math.abs(x - l) >= 2 || Math.abs(y - c) >= 2) {
-            if (x - l === -2 && y - c === -2) {
-                plateau[l - 1][c - 1].state = null;
-                plateau[l - 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png");
-            } else if (x - l === -2 && y - c === 2) {
-                plateau[l - 1][c + 1].state = null;
-                plateau[l - 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png");
-            } else if (x - l === 2 && y - c === 2) {
-                plateau[l + 1][c + 1].state = null;
-                plateau[l + 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png");
-            } else if (x - l === 2 && y - c === -2) {
-                plateau[l + 1][c - 1].state = null;
-                plateau[l + 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png");
-            }
+        if (x - l === -2 && y - c === -2) {
+            plateau[l - 1][c - 1].state = null;
+            plateau[l - 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png");
+        } else if (x - l === -2 && y - c === 2) {
+            plateau[l - 1][c + 1].state = null;
+            plateau[l - 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png");
+        } else if (x - l === 2 && y - c === 2) {
+            plateau[l + 1][c + 1].state = null;
+            plateau[l + 1][c + 1].firstChild.setAttribute("src", "../img/nopion.png");
+        } else if (x - l === 2 && y - c === -2) {
+            plateau[l + 1][c - 1].state = null;
+            plateau[l + 1][c - 1].firstChild.setAttribute("src", "../img/nopion.png");
         }
     }
 
@@ -582,7 +600,10 @@ function movePion(plateau, c, l, x, y) {
             if (x === 9) {
                 transformePion(plateau, x, y);
             }
-            eatPion();
+            if (Math.abs(x - l) >= 2 || Math.abs(y - c) >= 2) {
+                eatPion();
+                hasAte = true;
+            }
             nb_coups_j2++;
             break;
         case "pionBlanc" :
@@ -591,7 +612,10 @@ function movePion(plateau, c, l, x, y) {
             if (x === 0) {
                 transformePion(plateau, x, y);
             }
-            eatPion();
+            if (Math.abs(x - l) >= 2 || Math.abs(y - c) >= 2) {
+                eatPion();
+                hasAte = true;
+            }
             nb_coups_j1++;
             break;
         case "dameBlanche":
@@ -619,6 +643,8 @@ function movePion(plateau, c, l, x, y) {
     //console.log(c, l);
 
     plateau[l][c].firstChild.setAttribute("src", "../img/nopion.png");
+
+    return hasAte;
 
 
 }
