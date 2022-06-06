@@ -201,6 +201,14 @@ function calculCoupPossible(plateau, c, l) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
                         }
+                        if (l > 0) {
+                            if (plateau[l - 1][c + 1].state === "pionBlanc") {
+
+                                affichePossMange(plateau, l, c, "pionBlanc");
+                                coups++;
+
+                            }
+                        }
                     }
                     if (c > 0) {
                         if (plateau[l + 1][c - 1].state === "pionBlanc") {
@@ -208,6 +216,14 @@ function calculCoupPossible(plateau, c, l) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
 
+                        }
+                        if (l > 0) {
+                            if (plateau[l - 1][c - 1].state === "pionBlanc") {
+
+                                affichePossMange(plateau, l, c, "pionBlanc");
+                                coups++;
+
+                            }
                         }
                     }
                 }
@@ -240,12 +256,26 @@ function calculCoupPossible(plateau, c, l) {
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
                         }
+                        if (l < 9) {
+                            if (plateau[l + 1][c + 1].state === "pionNoir") {
+
+                                affichePossMange(plateau, l, c, "pionNoir");
+                                coups++;
+                            }
+                        }
                     }
                     if (c > 0) {
                         if (plateau[l - 1][c - 1].state === "pionNoir") {
 
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
+                        }
+                        if (l < 9) {
+                            if (plateau[l + 1][c - 1].state === "pionNoir") {
+
+                                affichePossMange(plateau, l, c, "pionNoir");
+                                coups++;
+                            }
                         }
                     }
                 }
