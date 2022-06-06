@@ -1,17 +1,36 @@
+
+*{
+    
+    padding: 0;
+    margin: 0;
+    
+}
+
 table tr td {
     border: 1px solid black;
 }
+
 
 table{
     text-align: center;
 }
 
+body{
+    background-color:#8c7ae6;;
+}
+
+
 header{
     text-align: center;
     font-size: 50px;
-    background-color: gray;
+    background-color: #44bd32;
+    display: flex;
+
 }
 
+.title{
+    flex: 1 2 auto;
+}
 
 .grid{
     display : grid;
@@ -22,8 +41,7 @@ header{
 
 .boutonAbandon{
     font-size: 30px;
-    background-color: black;
-    color: white;
+    background-color: #44bd32;
     margin:auto;
     
 }
@@ -35,9 +53,7 @@ header{
 }
 
 .tourJoueurDiv{
-
-    color:white;
-    background-color: black; 
+    background-color: #44bd32; 
     font-size: 30px;
     border-radius: 10px;
     width:325px;
@@ -73,9 +89,9 @@ header{
 }
 
 .pseudo1div{
+    margin-top: auto;
     font-size: 30px;
-    color: white;
-    background-color: black;
+    background-color: #44bd32;
     border-radius: 10px;
     grid-column:1;
     grid-row:1;
@@ -86,8 +102,7 @@ header{
 
 .nbCoups1div{
     font-size: 30px;
-    color: white;
-    background-color: black;
+    background-color: #44bd32;
     border-radius: 10px;
     grid-column:1;
     grid-row:2;
@@ -96,10 +111,11 @@ header{
     text-align:center;
 }
 
+
 .pseudo2div{
+    margin-top: auto;
     font-size: 30px;
-    color: white;
-    background-color: black;
+    background-color: #44bd32;
     border-radius: 10px;
     grid-column:2;
     grid-row:1;
@@ -108,10 +124,11 @@ header{
     text-align:center;
 }
 
+
+
 .nbCoups2div{
     font-size: 30px;
-    color: white;
-    background-color: black;
+    background-color: #44bd32;
     border-radius: 10px;
     grid-column:2;
     grid-row:2; 
@@ -135,9 +152,7 @@ header{
     }
     
     .tourJoueurDiv{
-
-        color:white;
-        background-color: black; 
+        background-color: #44bd32; 
         font-size: 30px;
         border-radius: 10px;
         width:auto;
@@ -168,8 +183,7 @@ header{
     }
     .pseudo1div{
         font-size: 30px;
-        color: white;
-        background-color: black;
+        background-color: #44bd32;
         border-radius: 10px;
         grid-column:1;
         grid-row:1;
@@ -180,8 +194,7 @@ header{
     
     .nbCoups1div{
         font-size: 30px;
-        color: white;
-        background-color: black;
+        background-color: #44bd32;
         border-radius: 10px;
         grid-column:1;
         grid-row:2;
@@ -192,8 +205,7 @@ header{
     
     .pseudo2div{
         font-size: 30px;
-        color: white;
-        background-color: black;
+        background-color: #44bd32;
         border-radius: 10px;
         grid-column:2;
         grid-row:1;
@@ -204,8 +216,7 @@ header{
     
     .nbCoups2div{
         font-size: 30px;
-        color: white;
-        background-color: black;
+        background-color: #44bd32;
         border-radius: 10px;
         grid-column:2;
         grid-row:2; 
