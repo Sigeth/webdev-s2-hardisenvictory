@@ -297,6 +297,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c + x + 1].state = ["coup", c, l];
                         plateau[l - x - 1][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l - x][c + x].state === "dameBlanche" && x != 0) {
@@ -322,6 +323,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c - x - 1].state = ["coup", c, l];
                         plateau[l - x - 1][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l - x][c + x].state === "dameBlanche" && x != 0) {
@@ -346,6 +348,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c + x + 1].state = ["coup", c, l];
                         plateau[l + x + 1][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l + x][c + x].state === "pionBlanc" || plateau[l + x][c + x].state === "dameBlanche" && x != 0) {
@@ -370,6 +373,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c - x - 1].state = ["coup", c, l];
                         plateau[l + x + 1][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l + x][c - x].state === "pionBlanc" || plateau[l + x][c - x].state === "dameBlanche" && x != 0) {
@@ -398,6 +402,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c + x + 1].state = ["coup", c, l];
                         plateau[l - x - 1][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionNoir" || plateau[l - x][c + x].state === "dameNoire" && x != 0) {
@@ -423,6 +428,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion blanc là omg");
                         plateau[l - x - 1][c - x - 1].state = ["coup", c, l];
                         plateau[l - x - 1][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionNoir" || plateau[l - x][c + x].state === "dameNoire" && x != 0) {
@@ -447,6 +453,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion blanc là omg");
                         plateau[l + x + 1][c + x + 1].state = ["coup", c, l];
                         plateau[l + x + 1][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l + x][c + x].state === "pionNoir" || plateau[l + x][c + x].state === "dameNoire" && x != 0) {
@@ -471,6 +478,7 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c - x - 1].state = ["coup", c, l];
                         plateau[l + x + 1][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        coups++;
                         break;
 
                     } else if (plateau[l + x][c - x].state === "pionNoir" || plateau[l + x][c - x].state === "dameNoire" && x != 0) {
@@ -600,7 +608,8 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x - 1][y- 1].state === "pionNoir" || plateau[x- 1][y - 1] === "dameNoire") {
                             
                             plateau[x - 1][y - 1].state = null;
-                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png");
+                            hasAte = true;
 
                         }
 
@@ -609,7 +618,8 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x-1][y+ 1].state === "pionNoir" || plateau[x-1][y+1] === "dameNoire") {
                         
                             plateau[x-1][y+1].state = null;
-                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
+                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png");
+                            hasAte = true;
 
                         }
 
@@ -623,7 +633,8 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x + 1][y - 1].state === "pionNoir" || plateau[x + 1][y - 1] === "dameNoire") {
                        
                             plateau[x + 1][y - 1].state = null;
-                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png");
+                            hasAte = true;
 
                         }
 
@@ -632,7 +643,8 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x + 1][y+ 1].state === "pionNoir" || plateau[y + 1][x + 1] === "dameNoire") {
                         console.log(x+1,y+1) ;
                             plateau[x + 1][y + 1].state = null;
-                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png");
+                            hasAte = true;
 
                         }
 
@@ -649,6 +661,7 @@ function movePion(plateau, c, l, x, y) {
                             
                             plateau[x - 1][y - 1].state = null;
                             plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            hasAte = true;
 
                         }
 
@@ -658,6 +671,7 @@ function movePion(plateau, c, l, x, y) {
                         
                             plateau[x-1][y+1].state = null;
                             plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
+                            hasAte = true;
 
                         }
 
@@ -672,6 +686,7 @@ function movePion(plateau, c, l, x, y) {
                        
                             plateau[x + 1][y - 1].state = null;
                             plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            hasAte = true;
 
                         }
 
@@ -681,6 +696,7 @@ function movePion(plateau, c, l, x, y) {
                         console.log(x+1,y+1) ;
                             plateau[x + 1][y + 1].state = null;
                             plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
+                            hasAte = true;
 
                         }
 
