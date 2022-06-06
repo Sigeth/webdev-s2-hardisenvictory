@@ -154,7 +154,7 @@ function initPlateau(plateau) {
     switch (plateau[l][c].state) {
         case "pionNoir":
 
-            if (l < 10) {
+            if (l < 9) {
                 // console.log("colone du pion  : ", c, "ligne du pion :", l);
                 if (!canEat(plateau, 1)) {
                     if (c < 9) {
@@ -182,6 +182,14 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
                         }
+                        if (l > 0) {
+                            if (plateau[l - 1][c + 1].state === "pionBlanc") {
+
+                                affichePossMange(plateau, l, c, "pionBlanc");
+                                coups++;
+
+                            }
+                        }
                     }
                     if (c > 0) {
                         if (plateau[l + 1][c - 1].state === "pionBlanc") {
@@ -189,6 +197,14 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
 
+                        }
+                        if (l > 0) {
+                            if (plateau[l - 1][c - 1].state === "pionBlanc") {
+
+                                affichePossMange(plateau, l, c, "pionBlanc");
+                                coups++;
+
+                            }
                         }
                     }
                 }
@@ -221,12 +237,27 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
                         }
+                        if (l < 9) {
+                            if (plateau[l + 1][c + 1].state === "pionNoir") {
+
+                                affichePossMange(plateau, l, c, "pionNoir");
+                                coups++;
+                            }
+                        }
                     }
                     if (c > 0) {
                         if (plateau[l - 1][c - 1].state === "pionNoir") {
 
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
+                        }
+
+                        if (l < 9) {
+                            if (plateau[l + 1][c - 1].state === "pionNoir") {
+
+                                affichePossMange(plateau, l, c, "pionNoir");
+                                coups++;
+                            }
                         }
                     }
                 }
