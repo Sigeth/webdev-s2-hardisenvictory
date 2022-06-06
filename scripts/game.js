@@ -163,7 +163,8 @@ function initPlateau(plateau) {
  * @param plateau
  * @param c - colonne c du pion
  * @param l - ligne l du pion
- */function calculCoupPossible(plateau, c, l) {
+ */
+function calculCoupPossible(plateau, c, l) {
 
 //bon c'est fait un peu n'importe comment mais ça marche omg; c'est pas vraiment opti quoi
 
@@ -200,14 +201,6 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
                         }
-                        if (l > 0) {
-                            if (plateau[l - 1][c + 1].state === "pionBlanc") {
-
-                                affichePossMange(plateau, l, c, "pionBlanc");
-                                coups++;
-
-                            }
-                        }
                     }
                     if (c > 0) {
                         if (plateau[l + 1][c - 1].state === "pionBlanc") {
@@ -215,14 +208,6 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionBlanc");
                             coups++;
 
-                        }
-                        if (l > 0) {
-                            if (plateau[l - 1][c - 1].state === "pionBlanc") {
-
-                                affichePossMange(plateau, l, c, "pionBlanc");
-                                coups++;
-
-                            }
                         }
                     }
                 }
@@ -255,13 +240,6 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
                         }
-                        if (l < 9) {
-                            if (plateau[l + 1][c + 1].state === "pionNoir") {
-
-                                affichePossMange(plateau, l, c, "pionNoir");
-                                coups++;
-                            }
-                        }
                     }
                     if (c > 0) {
                         if (plateau[l - 1][c - 1].state === "pionNoir") {
@@ -269,20 +247,13 @@ function initPlateau(plateau) {
                             affichePossMange(plateau, l, c, "pionNoir");
                             coups++;
                         }
-
-                        if (l < 9) {
-                            if (plateau[l + 1][c - 1].state === "pionNoir") {
-
-                                affichePossMange(plateau, l, c, "pionNoir");
-                                coups++;
-                            }
-                        }
                     }
                 }
             }
             break;
 
         case "dameBlanche":
+
             while (l - x >= 0 && c + x < 10) {
                 if (!canEat_Dames(plateau, 0)) {
                     if (estvide(plateau, l - x, c + x)) {
@@ -293,19 +264,23 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
-
-                if (canEat_Dames(plateau, 0)) {
-                    if (plateau[l - x][c + x].state === "pionNoir") {
-
-                        affichePossMange(plateau, l, c, "pionNoir");
-                        coups++;
+                    else if (plateau[l-x][c+x].state==="pionNoir" || plateau[l-x][c+x].state==="dameNoire") {
+                        console.log("ya un pion noir là omg");
+                        plateau[l - x - 1 ][c + x + 1].state = ["coup", c, l];
+                        plateau[l - x - 1 ][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
                     }
+                    else if (plateau[l-x][c+x].state==="pionBlanc" || plateau[l-x][c+x].state==="dameBlanche" && x!=0){
+                        console.log(`pionBLanc en : ${l-x} et en ${c+x}`);
+                        break;
+                    }
+                    x++;
                 }
-                x++;
             }
             x = 0;
+
+
 
             while (l - x >= 0 && c - x >= 0) {
                 if (!canEat_Dames(plateau, 0)) {
@@ -317,48 +292,48 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l-x][c-x].state==="pionNoir" || plateau[l-x][c+x].state==="dameNoire") {
+                        console.log("ya un pion noir là omg");
+                        plateau[l - x - 1 ][c - x - 1].state = ["coup", c, l];
+                        plateau[l - x - 1 ][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 0)) {
-                    if (plateau[l - x][c - x].state === "pionNoir" || plateau[l - x][c - x] === "dameNoire") {
-
-                        affichePossMange(plateau, l, c, "pionNoir");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l-x][c+x].state==="pionBlanc" || plateau[l-x][c+x].state==="dameBlanche" && x!=0){
+                        console.log(`pionBLanc en : ${l-x} et en ${c-x}`);
                         break;
                     }
+                    x++;
                 }
-                x++;
             }
             x = 0;
 
-            while (l + x < 10 && c + x < 10) {
-                if (!canEat_Dames(plateau, 0)) {
-                    if (estvide(plateau, l + x, c + x)) {
-                        {
+            while (l + x < 10 && c + x < 10) {if (!canEat_Dames(plateau, 0)) {
+                if (estvide(plateau, l + x, c + x)) {
+                    {
 
-                            plateau[l + x][c + x].state = ["coup", c, l];
-                            plateau[l + x][c + x].style.setProperty("background-color", "#787979");
-                            coups++;
-                        }
+                        plateau[l + x][c + x].state = ["coup", c, l];
+                        plateau[l + x][c + x].style.setProperty("background-color", "#787979");
+                        coups++;
                     }
                 }
+                else if (plateau[l+x][c+x].state==="pionNoir" || plateau[l-x][c+x].state==="dameNoire") {
+                    console.log("ya un pion noir là omg");
+                    plateau[l + x + 1 ][c + x + 1].state = ["coup", c, l];
+                    plateau[l + x + 1 ][c + x + 1].style.setProperty("background-color", "#dc1512");
+                    break;
 
-                if (canEat_Dames(plateau, 0)) {
-                    if (plateau[l + x][c + x].state === "pionNoir" || plateau[l + x][c + x] === "dameNoire") {
-
-                        affichePossMange(plateau, l, c, "pionNoir");
-                        coups++;
-
-                    } else {
-                        break;
-                    }
+                }
+                else if (plateau[l+x][c+x].state==="pionBlanc" || plateau[l+x][c+x].state==="dameBlanche" && x!=0){
+                    console.log(`pionBLanc en : ${l+x} et en ${c+x}`);
+                    break;
                 }
                 x++;
             }
+            }
             x = 0;
-            while (l + x < 10 && c - x >= 0) {
+
+            while (l + x < 10 && c - x>=0) {
                 if (!canEat_Dames(plateau, 0)) {
                     if (estvide(plateau, l + x, c - x)) {
                         {
@@ -368,49 +343,53 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l+x][c-x].state==="pionNoir" || plateau[l-x][c-x].state==="dameNoire") {
+                        console.log("ya un pion noir là omg");
+                        plateau[l + x + 1 ][c - x - 1].state = ["coup", c, l];
+                        plateau[l + x + 1 ][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 0)) {
-                    if (plateau[l + x][c - x].state === "pionNoir" || plateau[l + x][c - x] === "dameNoire") {
-
-                        affichePossMange(plateau, l, c, "pionNoir");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l+x][c-x].state==="pionBlanc" || plateau[l+x][c-x].state==="dameBlanche" && x!=0){
+                        console.log(`pionBLanc en : ${l+x} et en ${c-x}`);
                         break;
                     }
+                    x++;
                 }
-                x++;
             }
             x = 0;
 
             break;
+
         case "dameNoire":
+
             while (l - x >= 0 && c + x < 10) {
                 if (!canEat_Dames(plateau, 1)) {
                     if (estvide(plateau, l - x, c + x)) {
                         {
+
                             plateau[l - x][c + x].state = ["coup", c, l];
                             plateau[l - x][c + x].style.setProperty("background-color", "#787979");
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l-x][c+x].state==="pionBlanc" || plateau[l-x][c+x].state==="dameBlanche") {
+                        console.log("ya un pion noir là omg");
+                        plateau[l - x - 1 ][c + x + 1].state = ["coup", c, l];
+                        plateau[l - x - 1 ][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 1)) {
-                    if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l - x][c + x] === "dameBlanche") {
-
-                        affichePossMange(plateau, l, c, "pionBlanc");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l-x][c+x].state==="pionNoir" || plateau[l-x][c+x].state==="dameNoire" && x!=0){
+                        console.log(`pionNoir en : ${l-x} et en ${c+x}`);
                         break;
                     }
-
+                    x++;
                 }
-                x++;
             }
             x = 0;
+
+
 
             while (l - x >= 0 && c - x >= 0) {
                 if (!canEat_Dames(plateau, 1)) {
@@ -422,21 +401,22 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l-x][c-x].state==="pionBlanc" || plateau[l-x][c+x].state==="dameBlanche") {
+                        console.log("ya un pion blanc là omg");
+                        plateau[l - x - 1 ][c - x - 1].state = ["coup", c, l];
+                        plateau[l - x - 1 ][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 1)) {
-                    if (plateau[l - x][c - x].state === "pionBlanc" || plateau[l - x][c - x]) {
-
-                        affichePossMange(plateau, l, c, "pionBlanc");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l-x][c+x].state==="pionNoir" || plateau[l-x][c+x].state==="dameNoire" && x!=0){
+                        console.log(`pionNoir en : ${l-x} et en ${c-x}`);
                         break;
                     }
+                    x++;
                 }
-                x++;
             }
             x = 0;
+
             while (l + x < 10 && c + x < 10) {
                 if (!canEat_Dames(plateau, 1)) {
                     if (estvide(plateau, l + x, c + x)) {
@@ -447,23 +427,23 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l+x][c+x].state==="pionBlanc" || plateau[l-x][c+x].state==="dameBlanche") {
+                        console.log("ya un pion blanc là omg");
+                        plateau[l + x + 1 ][c + x + 1].state = ["coup", c, l];
+                        plateau[l + x + 1 ][c + x + 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 1)) {
-                    if (plateau[l + x][c + x].state === "pionBlanc" || plateau[l + x][c + x] === "dameBlanche") {
-
-                        affichePossMange(plateau, l, c, "pionBlanc");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l+x][c+x].state==="pionNoir" || plateau[l+x][c+x].state==="dameNoire" && x!=0){
+                        console.log(`pionNoir en : ${l+x} et en ${c+x}`);
                         break;
                     }
+                    x++;
                 }
-                x++;
             }
             x = 0;
 
-            while (l + x < 10 && c - x >= 0) {
+            while (l + x < 10 && c - x>=0) {
                 if (!canEat_Dames(plateau, 1)) {
                     if (estvide(plateau, l + x, c - x)) {
                         {
@@ -473,19 +453,19 @@ function initPlateau(plateau) {
                             coups++;
                         }
                     }
-                }
+                    else if (plateau[l+x][c-x].state==="pionBlanc" || plateau[l-x][c-x].state==="dameBlanche") {
+                        console.log("ya un pion noir là omg");
+                        plateau[l + x + 1 ][c - x - 1].state = ["coup", c, l];
+                        plateau[l + x + 1 ][c - x - 1].style.setProperty("background-color", "#dc1512");
+                        break;
 
-                if (canEat_Dames(plateau, 1)) {
-                    if (plateau[l + x][c - x].state === "pionBlanc" || plateau[l + x][c - x]) {
-
-                        affichePossMange(plateau, l, c, "pionBlanc");
-                        coups++;
-
-                    } else {
+                    }
+                    else if (plateau[l+x][c-x].state==="pionNoir" || plateau[l+x][c-x].state==="dameNoire" && x!=0){
+                        console.log(`pionNoirc en : ${l+x} et en ${c-x}`);
                         break;
                     }
+                    x++;
                 }
-                x++;
             }
             x = 0;
 
