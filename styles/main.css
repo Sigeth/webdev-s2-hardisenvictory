@@ -2,52 +2,54 @@
 {
     margin: 0;
     padding: 0;
-    background:#8c7ae6;
+    background:#ffff;
 }
 
 h1{
     font-family: cursive;
-    margin-left: 32%;
+    margin-left: 25%;
     text-align: center;
     background-color: #44bd32;
     font-size: 100px;
-    width: 700px;
+    width: 50%;
     border-radius: 50px;
 }
 
 .tableau{
-    margin-top: 200px;
-    margin-left: 20%;;
+    margin-top:10%;   
+    margin-left: 15%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 40% 40%;
+    grid-gap:5%;
 }
 
 .j1{
-    grid-template-columns: 1;
+   grid-row:1;
+   grid-column:1;
 }
 
-#txtPseudo1{
+.txtPseudo1{
     font-family: cursive;
     text-align: center;
-    width: 400px;
+    width: 35vw;
     font-size: 50px;
     background-color: #44bd32;
     border-radius: 50px;
     
 }
 
-#txtPseudo2{
+.txtPseudo2{
     font-family: cursive;
     text-align: center;
-    width: 400px;
+    width: 35vw;
     font-size: 50px;
     background-color: #44bd32;
     border-radius: 20px;
 }
 
 
-.J2{
-    grid-template-columns: 2;
+.j2{
+    grid-column:2;
 }
 
 #pseudo2{
@@ -55,7 +57,7 @@ h1{
     margin-top: 15px;
     font-family: cursive;
     text-align: center;
-    width: 400px;
+    width: 35vw;
     font-size: 50px;
 
 }
@@ -65,21 +67,93 @@ h1{
     margin-top: 15px;
     font-family: cursive;
     text-align: center;
-    width: 400px;
+    width: 35vw;
     font-size: 50px;
 
 }
 
-
-
 #playButton{
-    width : 500px;
+    width:50%;
     background-color: #dcdde1;
-    margin-top: 100px;
-    margin-left: 35%;
+    margin-top: 10%;
+    margin-left: 25%;
     text-align: center;
     font-family: cursive;
     font-size: 70px;
 }
 
+@media screen and (max-width: 450px){
 
+    h1{
+        text-align: center;
+        background-color: #44bd32;
+        font-size:45px;
+        border-radius:50px;
+    }
+    
+    .tableau{
+        
+        margin-left: 12vw;
+        display: grid;
+        grid-template-columns: 35vw 35VW;
+        grid-gap:5vw;
+    }
+
+    .j1{
+        grid-row:1;
+        grid-column:1;
+     }
+     
+     .txtPseudo1{
+         font-family: cursive;
+         text-align: center;
+         font-size: 25px;
+         background-color: #44bd32;
+         border-radius: 50px;
+         
+     }
+     
+     .txtPseudo2{
+         font-family: cursive;
+         text-align: center;
+         font-size: 25px;
+         background-color: #44bd32;
+         border-radius: 20px;
+     }
+     
+     
+     .j2{
+        grid-row:1; 
+        grid-column:2;
+     }
+     
+     #pseudo2{
+         background-color: #dcdde1;
+         margin-top: 15px;
+         font-family: cursive;
+         text-align: center;
+
+         font-size: 25px;
+     
+     }
+     
+     #pseudo1{
+         background-color: #dcdde1;
+         margin-top: 15px;
+         font-family: cursive;
+         text-align: center;
+
+         font-size: 25px;
+     
+     }
+
+     #playButton{
+        width:50%;
+        background-color: #dcdde1;
+        margin-left:25%;
+        margin-top:5%;
+        text-align: center;
+        font-family: cursive;
+        font-size: 25px;
+    }
+}
