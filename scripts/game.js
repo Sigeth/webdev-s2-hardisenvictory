@@ -10,13 +10,15 @@
      * @param i
      * @param j
      */
+
+
     function setPions(plateau, i, j) {
 
         plateau[i][j].style.setProperty("background-color", "#873600");
-        if (i < 1) {
+        if (i < 4) {
             plateau[i][j].firstChild.setAttribute("src", "../img/pionnoir.png")
             plateau[i][j].state = "pionNoir";
-        } else if (i > 8) {
+        } else if (i > 5) {
             plateau[i][j].firstChild.setAttribute("src", "../img/pionblanc.png")
             plateau[i][j].state = "pionBlanc";
         } else {
@@ -90,11 +92,17 @@
                             switch (hasWon(plateau, joueur)) {
                                 case 1:
                                     console.log("joueur 1 gagne");
-                                    //document.location.href = "../docs/endgame.html";
+                                    nb_vic_j1 ++;
+                                    nb_def_j2 ++;
+                                    saveStats("0");
+                                    document.location.href = "../docs/endgame.html";
                                     break;
                                 case 2:
+                                    nb_def_j1++;
+                                    nb_vic_j2++;
                                     console.log("joueur 2 gagne");
-                                    //document.location.href = "../docs/endgame.html";
+                                    saveStats("1");
+                                    document.location.href = "../docs/endgame.html";
                                     break;
                                 case 3:
                                     console.log("match nul");
@@ -108,12 +116,27 @@
                                         if (!canEat(plateau, joueur)) {
                                             switch (joueur) {
                                                 case 0:
+                                                    pions_manges_j1 ++;
+                                                    document.getElementById("pionsRestants2Txt").innerText = `Pion restants : ${20 - pions_manges_j1}`
                                                     joueur = 1;
                                                     document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo2")}`
                                                     break;
                                                 default:
+                                                    pions_manges_j2 ++;
+                                                    document.getElementById("pionsRestants1Txt").innerText = `Pion restants : ${20 - pions_manges_j2}`
                                                     joueur = 0;
                                                     document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo1")}`
+                                                    break;
+                                            }
+                                        } else {
+                                            switch (joueur) {
+                                                case 0:
+                                                    pions_manges_j1 ++;
+                                                    document.getElementById("pionsRestants2Txt").innerText = `Pion restants : ${20 - pions_manges_j1}`
+                                                    break;
+                                                default:
+                                                    pions_manges_j2 ++;
+                                                    document.getElementById("pionsRestants1Txt").innerText = `Pion restants : ${20 - pions_manges_j2}`
                                                     break;
                                             }
                                         }
@@ -297,7 +320,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c + x + 1].state = ["coup", c, l];
                         plateau[l - x - 1][c + x + 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l - x][c + x].state === "dameBlanche" && x != 0) {
@@ -323,7 +345,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c - x - 1].state = ["coup", c, l];
                         plateau[l - x - 1][c - x - 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionBlanc" || plateau[l - x][c + x].state === "dameBlanche" && x != 0) {
@@ -348,7 +369,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c + x + 1].state = ["coup", c, l];
                         plateau[l + x + 1][c + x + 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l + x][c + x].state === "pionBlanc" || plateau[l + x][c + x].state === "dameBlanche" && x != 0) {
@@ -373,7 +393,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c - x - 1].state = ["coup", c, l];
                         plateau[l + x + 1][c - x - 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l + x][c - x].state === "pionBlanc" || plateau[l + x][c - x].state === "dameBlanche" && x != 0) {
@@ -402,7 +421,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l - x - 1][c + x + 1].state = ["coup", c, l];
                         plateau[l - x - 1][c + x + 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionNoir" || plateau[l - x][c + x].state === "dameNoire" && x != 0) {
@@ -428,7 +446,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion blanc là omg");
                         plateau[l - x - 1][c - x - 1].state = ["coup", c, l];
                         plateau[l - x - 1][c - x - 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l - x][c + x].state === "pionNoir" || plateau[l - x][c + x].state === "dameNoire" && x != 0) {
@@ -453,7 +470,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion blanc là omg");
                         plateau[l + x + 1][c + x + 1].state = ["coup", c, l];
                         plateau[l + x + 1][c + x + 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l + x][c + x].state === "pionNoir" || plateau[l + x][c + x].state === "dameNoire" && x != 0) {
@@ -478,7 +494,6 @@ function calculCoupPossible(plateau, c, l) {
                         console.log("ya un pion noir là omg");
                         plateau[l + x + 1][c - x - 1].state = ["coup", c, l];
                         plateau[l + x + 1][c - x - 1].style.setProperty("background-color", "#dc1512");
-                        coups++;
                         break;
 
                     } else if (plateau[l + x][c - x].state === "pionNoir" || plateau[l + x][c - x].state === "dameNoire" && x != 0) {
@@ -608,8 +623,7 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x - 1][y- 1].state === "pionNoir" || plateau[x- 1][y - 1] === "dameNoire") {
                             
                             plateau[x - 1][y - 1].state = null;
-                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png");
-                            hasAte = true;
+                            plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -618,8 +632,7 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x-1][y+ 1].state === "pionNoir" || plateau[x-1][y+1] === "dameNoire") {
                         
                             plateau[x-1][y+1].state = null;
-                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png");
-                            hasAte = true;
+                            plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -633,8 +646,7 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x + 1][y - 1].state === "pionNoir" || plateau[x + 1][y - 1] === "dameNoire") {
                        
                             plateau[x + 1][y - 1].state = null;
-                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png");
-                            hasAte = true;
+                            plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -643,8 +655,7 @@ function movePion(plateau, c, l, x, y) {
                         if (plateau[x + 1][y+ 1].state === "pionNoir" || plateau[y + 1][x + 1] === "dameNoire") {
                         console.log(x+1,y+1) ;
                             plateau[x + 1][y + 1].state = null;
-                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png");
-                            hasAte = true;
+                            plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
 
                         }
 
@@ -661,7 +672,6 @@ function movePion(plateau, c, l, x, y) {
                             
                             plateau[x - 1][y - 1].state = null;
                             plateau[x - 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
-                            hasAte = true;
 
                         }
 
@@ -671,7 +681,6 @@ function movePion(plateau, c, l, x, y) {
                         
                             plateau[x-1][y+1].state = null;
                             plateau[x-1][y+1].firstChild.setAttribute("src", "../img/nopion.png")
-                            hasAte = true;
 
                         }
 
@@ -686,7 +695,6 @@ function movePion(plateau, c, l, x, y) {
                        
                             plateau[x + 1][y - 1].state = null;
                             plateau[x + 1][y - 1].firstChild.setAttribute("src", "../img/nopion.png")
-                            hasAte = true;
 
                         }
 
@@ -696,7 +704,6 @@ function movePion(plateau, c, l, x, y) {
                         console.log(x+1,y+1) ;
                             plateau[x + 1][y + 1].state = null;
                             plateau[x + 1][y + 1].firstChild.setAttribute("src", "../img/nopion.png")
-                            hasAte = true;
 
                         }
 
@@ -721,7 +728,6 @@ function movePion(plateau, c, l, x, y) {
                 eatPion();
                 hasAte = true;
             }
-            nb_coups_j2++;
             break;
         case "pionBlanc" :
             plateau[x][y].state = "pionBlanc";
@@ -733,30 +739,20 @@ function movePion(plateau, c, l, x, y) {
                 eatPion();
                 hasAte = true;
             }
-            nb_coups_j1++;
             break;
         case "dameBlanche":
             plateau[x][y].state = "dameBlanche";
             plateau[x][y].firstChild.setAttribute("src", "../img/dameBlanche.png");
             console.log("dameBlanche veut bouger");
             eatdames();
-            nb_coups_j1++;
             break;
         case "dameNoire":
             plateau[x][y].state = "dameNoire";
             plateau[x][y].firstChild.setAttribute("src", "../img/pionnoir.png");
             console.log("dameNoire veut bouger");
             eatdames();
-            nb_coups_j2++;
             break;
     }
-
-    console.log("STATISTIQUES");
-    console.log("Nb Parties : " + nb_parties);
-    console.log("nb_coups_j1 :" + nb_coups_j1);
-    console.log("nb_coups_j2 :" + nb_coups_j2);
-    console.log("pions_manges_j1 :" + pions_manges_j1);
-    console.log("pions_manges_j2 :" + pions_manges_j2);
 
     plateau[l][c].state = null;
     //console.log(c, l);
@@ -804,11 +800,6 @@ function canEat(plateau, joueur) {
     clearCoupPossible(plateau);
 
     if (potentialEat > 0) {
-        if (joueur === 0) {
-            pions_manges_j1++;
-        } else {
-            pions_manges_j2++;
-        }
         return true;
     }
     return false;
@@ -963,7 +954,6 @@ function estvide(plateau, x, y) {
 
     if (plateau[x][y].state !== "pionNoir" && plateau[x][y].state !== "pionBlanc" && plateau[x][y].state !== "dameBlanche" && plateau[x][y].state !== "dameNoir") {
         return true;
-
     }
 }
 
@@ -1000,6 +990,23 @@ function resetPlateau() {
 
 }
 
+function saveStats(joueur) {
+    sessionStorage.setItem("winner", joueur);
+    sessionStorage.setItem('nbParties', nb_parties);
+    sessionStorage.setItem('nbVicJ1', nb_vic_j1);
+    sessionStorage.setItem('nbVicJ2', nb_vic_j2);
+    sessionStorage.setItem('nbDefJ1', nb_def_j1);
+    sessionStorage.setItem('nbDefj2', nb_def_j2);
+    sessionStorage.setItem('nbCoupJ1', nb_coups_j1);
+    sessionStorage.setItem('nbCoupJ2', nb_coups_j2);
+    sessionStorage.setItem('nbPionsMangesJ1', pions_manges_j1);
+    sessionStorage.setItem('nbPionsMangesJ2', pions_manges_j2);
+    sessionStorage.setItem('MoyCoupJ1', moy_coups_j1);
+    sessionStorage.setItem('MoyCoupJ2', moy_coups_j2);
+    sessionStorage.setItem('MoyPionMangeJ1', moy_pions_j1);
+    sessionStorage.setItem('MoyPionMangeJ2', moy_coups_j2);
+}
+
 
 ///////////////////////////////////////////////////////
 //////////////// Début du code OMG ////////////////////
@@ -1008,20 +1015,21 @@ function resetPlateau() {
 let joueur = 0;
 let plateau = new Array(10);
 
-// Variables de Statistiques de fin de jeu :
-let nb_parties = 0;
-let nb_vic_j1 = 0;
-let nb_vic_j2 = 0;
-let nb_def_j1 = 0;
-let nb_def_j2 = 0;
+let nb_parties;
+let nb_vic_j1;
+let nb_vic_j2;
+let nb_def_j1;
+let nb_def_j2;
 let nb_coups_j1 = 0;
 let nb_coups_j2 = 0;
 let moy_coups_j1 = 0;
 let moy_coups_j2 = 0;
 let pions_manges_j1 = 0;
 let pions_manges_j2 = 0;
-let moy_pions_j1 = 0;
-let moy_pions_j2 = 0;
+let moy_pions_j1;
+let moy_pions_j2;
+
+
 
 for (let i = 0; i < 10; i++) {
     plateau[i] = new Array(10);
@@ -1030,14 +1038,75 @@ for (let i = 0; i < 10; i++) {
 if (!localStorage.getItem("pseudo1")) {
     localStorage.setItem("pseudo1", "Pseudo 1");
 }
+
 if (!localStorage.getItem("pseudo2")) {
     localStorage.setItem("pseudo2", "Pseudo 2");
 }
+
+if (!sessionStorage.getItem("nbParties")) {
+    nb_parties = 0;
+
+}
+else{
+    nb_parties = sessionStorage.getItem("nbParties");
+}
+
+if (!sessionStorage.getItem("nbVicJ1")) {
+    nb_vic_j1 = 0;
+
+}
+else{
+    nb_vic_j1 = sessionStorage.getItem("nbVicJ1");
+}
+
+if (!sessionStorage.getItem("nbVicJ2")) {
+    nb_vic_j2 = 0;
+
+}
+else{
+    nb_vic_j2 = sessionStorage.getItem("nbVicJ2");
+}
+
+if (!sessionStorage.getItem("nbDefJ1")) {
+    nb_def_j1 = 0;
+
+}
+else{
+    nb_def_j1 = sessionStorage.getItem("nbDefJ1");
+}
+
+if (!sessionStorage.getItem("nbDefJ2")) {
+    nb_def_j2 = 0;
+
+}
+else{
+    nb_def_j2 = sessionStorage.getItem("nbDefJ2");
+}
+
+if (!sessionStorage.getItem("MoyPionMangeJ1")) {
+    moy_pions_j1 = 0;
+
+}
+else{
+    moy_pions_j1 = sessionStorage.getItem("MoyPionMangeJ1");
+}
+
+if (!sessionStorage.getItem("MoyPionMangeJ2")) {
+    moy_pions_j2 = 0;
+
+}
+else{
+    moy_pions_j2 = sessionStorage.getItem("MoyPionMangeJ2");
+}
+
 
 
 document.getElementById("pseudo1txt").innerText = localStorage.getItem("pseudo1");
 document.getElementById("pseudo2txt").innerText = localStorage.getItem("pseudo2");
 document.getElementById("tourJoueurTxt").innerText = `Au tour de ${localStorage.getItem("pseudo1")}`
+
+document.getElementById("pionsRestants1Txt").innerText = `Pion restants : ${20 - pions_manges_j1}`
+document.getElementById("pionsRestants2Txt").innerText = `Pion restants : ${20 - pions_manges_j1}`
 
 
 initPlateau(plateau, joueur);
@@ -1048,9 +1117,11 @@ const surrend = document.getElementById("boutonAbandon");
 surrend.addEventListener("click", function () {
     if (joueur === 0) {
         console.log("joueur 2 gagne");
+        saveStats("1");
         document.location.href = "../docs/endgame.html";
     } else if (joueur === 1) {
         console.log("joueur 1 gagne");
+        saveStats("0");
         document.location.href = "../docs/endgame.html";
     }
 });
