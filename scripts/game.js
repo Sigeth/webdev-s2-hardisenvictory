@@ -1139,10 +1139,14 @@ const surrend = document.getElementById("boutonAbandon");
 surrend.addEventListener("click", function () {
     if (joueur === 0) {
         console.log("joueur 2 gagne");
+        nb_vic_j2++;
+        nb_def_j1++;
         saveStats("1");
         document.location.href = "../docs/endgame.html";
     } else if (joueur === 1) {
         console.log("joueur 1 gagne");
+        nb_vic_j1++;
+        nb_def_j2++;
         saveStats("0");
         document.location.href = "../docs/endgame.html";
     }

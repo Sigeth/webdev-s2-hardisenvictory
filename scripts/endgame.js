@@ -24,16 +24,15 @@ document.getElementById("j2nbVictoire").innerHTML=nb_vic_j2;
 document.getElementById("j1nbDéfaites").innerHTML=nb_def_j1;
 document.getElementById("j2nbDéfaites").innerHTML=nb_def_j2;
 
-
-moy_coups_j1 = (moy_coups_j1 + nb_coups_j1)/2;
-moy_coups_j2 = (moy_coups_j2 + nb_coups_j2)/2;
-moy_pions_j1 = (moy_pions_j1 + pions_manges_j1)/2;
-moy_pions_j2 = (moy_pions_j2 + pions_manges_j2)/2;
+moy_coups_j1 = (moy_coups_j1 + nb_coups_j1)/nb_parties;
+moy_coups_j2 = (moy_coups_j2 + nb_coups_j2)/nb_parties;
+moy_pions_j1 = (moy_pions_j1 + pions_manges_j1)/nb_parties;
+moy_pions_j2 = (moy_pions_j2 + pions_manges_j2)/nb_parties;
 
 document.getElementById("j1MoyCoups").innerHTML=moy_coups_j1;
 document.getElementById("j2MoyCoups").innerHTML=moy_coups_j2;
-document.getElementById("j1NbPions").innerHTML=moy_coups_j1;
-document.getElementById("j2NbPions").innerHTML=moy_coups_j2;
+document.getElementById("MoyPionsj1").innerHTML=moy_pions_j1;
+document.getElementById("MoyPionsj2").innerHTML=moy_pions_j2;
 
 if (winner == 0) {
     document.getElementById("winPseudo").innerHTML = localStorage.getItem("pseudo1");
